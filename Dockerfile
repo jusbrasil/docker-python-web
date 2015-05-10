@@ -14,11 +14,15 @@ RUN set -x; \
 # Configure locale
 RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
+# Install Python test suite
+RUN pip install nose pytest mock
+
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
         && npm install -g less@1.3.3 \
         && npm install -g phantomjs
 
+# Based on python onbuild images
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
