@@ -12,9 +12,8 @@ RUN set -x; \
             locales
 
 # Configure timezone and locale
-ENV DEBIAN_FRONTEND=noninteractive
-RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f tzdata
-RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && dpkg-reconfigure locales
+RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
 # Install Nginx
 RUN apt-get install -y nginx
