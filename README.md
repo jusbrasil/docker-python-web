@@ -7,14 +7,14 @@ Docker base image for Python web applications in JusBrasil.
 ### Installed Packages
 
 Python:
-  - gunicorn 
-  - nose
-  - mock
-  - pytest
+  - [Gunicorn](http://gunicorn.org/) 
+  - [nose](https://nose.readthedocs.org/)
+  - [mock](http://www.voidspace.org.uk/python/mock/)
+  - [pytest](http://pytest.org/)
   
 Node:
-  - lessc@1.3.3
-  - phathomjs
+  - [Less](http://lesscss.org/)
+  - [PhathomJS](http://phantomjs.org/)
 
 ## Usage
 
