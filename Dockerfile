@@ -12,8 +12,9 @@ RUN set -x; \
             locales
 
 # Configure timezone and locale
-RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
-RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+ENV DEBIAN_FRONTEND=noninteractive
+RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f tzdata
+RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && dpkg-reconfigure locales
 
 # Install Python packages
 RUN pip install nose pytest mock gunicorn
