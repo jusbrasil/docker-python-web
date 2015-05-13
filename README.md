@@ -41,7 +41,6 @@ Flask==0.10.1
 Next, up, `Dockerfile`:
 
 ```docker
-# Dockerfile
 FROM jusbrasil/python-web
 
 CMD ['python', 'app.py']
