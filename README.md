@@ -6,6 +6,9 @@ Docker base image for Python web applications in JusBrasil.
 
 ### Installed Packages
 
+System:
+  - [Nginx](http://nginx.org/)
+
 Python:
   - [Gunicorn](http://gunicorn.org/) 
   - [nose](https://nose.readthedocs.org/)

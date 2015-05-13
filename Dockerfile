@@ -16,6 +16,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f tzdata
 RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && dpkg-reconfigure locales
 
+# Install Nginx
+RUN apt-get install -y nginx
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+
 # Install Python packages
 RUN pip install nose pytest mock gunicorn
 
