@@ -19,6 +19,8 @@ RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && DEBIAN_FRONTEND
 RUN apt-get install -y nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
+# Replace the default path for VCS dependencies
+ENV PIP_SRC /usr/local/src
 # Install Python packages
 RUN pip install nose pytest mock gunicorn
 
