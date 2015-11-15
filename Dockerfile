@@ -9,6 +9,7 @@ RUN set -x; \
             curl \
             nodejs \
             npm \
+            ruby \
             locales
 
 # Configure timezone and locale
@@ -26,8 +27,12 @@ RUN pip install nose pytest mock gunicorn
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
-        && npm install -g less@1.3.3 \
+        && npm install -g grunt-cli \
         && npm install -g phantomjs
+
+# Install CSS processors
+RUN npm install -g less@1.3.3 \
+        && gem install sass -v 3.4.13
 
 # Based on python onbuild images
 RUN mkdir -p /usr/src/app
