@@ -27,6 +27,7 @@ RUN pip install nose pytest mock gunicorn
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
+        && npm install -g bower \
         && npm install -g grunt-cli \
         && npm install -g phantomjs
 
