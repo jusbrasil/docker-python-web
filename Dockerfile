@@ -1,5 +1,9 @@
 FROM python:2.7.8
 
+# Set versions as environment variables so that they can be inspected later.
+ENV LESSC_VERSION=1.7.5 \
+    LIBSASS_VERSION=3.11.2
+
 # Update the package repository
 RUN set -x; \
         apt-get update \
@@ -9,6 +13,7 @@ RUN set -x; \
             curl \
             nodejs \
             npm \
+            libssl-dev \
             ruby \
             locales
 
@@ -22,8 +27,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Replace the default path for VCS dependencies
 ENV PIP_SRC /usr/local/src
-# Install Python packages
-RUN pip install nose pytest mock gunicorn
+# Upgrade pip and install Python packages
+RUN pip install -U pip && pip install nose pytest mock gunicorn
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
@@ -32,10 +37,10 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node \
         && npm install -g phantomjs
 
 # Install CSS processors
-RUN npm install -g less@1.3.3 \
-        && gem install sass -v 3.4.13
+RUN npm install -g \
+    less@${LESSC_VERSION} \
+    node-sass@${LIBSASS_VERSION}
 
 # Based on python onbuild images
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
