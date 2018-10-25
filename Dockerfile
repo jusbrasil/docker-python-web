@@ -1,4 +1,4 @@
-FROM python:2.7.8
+FROM python:2.7.15
 
 # Set versions as environment variables so that they can be inspected later.
 ENV LESSC_VERSION=1.7.5 \
@@ -11,14 +11,15 @@ RUN set -x; \
             ca-certificates \
             wget \
             curl \
-            nodejs \
-            npm \
             libssl-dev \
             ruby \
             locales
 
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
+
 # Configure timezone and locale
-RUN echo "America/Sao_Paulo" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
+RUN ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime; dpkg-reconfigure -f noninteractive tzdata
 RUN echo 'pt_BR.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
 # Install Nginx
@@ -31,13 +32,11 @@ ENV PIP_SRC /usr/local/src
 RUN pip install -U pip && pip install nose pytest mock gunicorn
 
 # Install node packages
-RUN ln -s /usr/bin/nodejs /usr/bin/node \
-        && npm install -g bower \
-        && npm install -g grunt-cli \
-        && npm install -g phantomjs
+RUN npm install -g bower \
+        && npm install -g grunt-cli
 
 # Install CSS processors
-RUN npm install -g \
+RUN npm install -g --unsafe-perm \
     less@${LESSC_VERSION} \
     node-sass@${LIBSASS_VERSION}
 
