@@ -1,4 +1,4 @@
-FROM python:2.7.8
+FROM python:2.7.9
 
 # Set versions as environment variables so that they can be inspected later.
 ENV LESSC_VERSION=1.7.5 \
@@ -27,8 +27,10 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Replace the default path for VCS dependencies
 ENV PIP_SRC /usr/local/src
-# Upgrade pip and install Python packages
-RUN pip install -U pip && pip install nose pytest mock gunicorn
+
+# Upgrade pip/setuptools to latest version with py2 support + other required packages
+RUN pip install pip==20.3.4 setuptools==44.1.1 \
+                nose pytest mock gunicorn
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
