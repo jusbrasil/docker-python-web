@@ -28,9 +28,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 # Replace the default path for VCS dependencies
 ENV PIP_SRC /usr/local/src
 
-# Upgrade pip/setuptools to latest version with py2 support + other required packages
+# Upgrade pip/setuptools to latest version with py2 support
 RUN pip install pip==20.3.4 setuptools==44.1.1 \
-                nose pytest mock gunicorn
+                nose==1.3.7 pytest==3.0.7 mock==2.0.0 gunicorn==19.7.1
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
