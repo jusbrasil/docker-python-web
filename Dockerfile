@@ -29,8 +29,15 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ENV PIP_SRC /usr/local/src
 
 # Upgrade pip/setuptools to latest version with py2 support
-RUN pip install pip==20.3.4 setuptools==44.1.1 \
-                nose==1.3.7 pytest==3.0.7 mock==2.0.0 gunicorn==19.7.1
+RUN pip install pip==20.3.4 setuptools==44.1.1
+
+# Install other commonly used packages
+# Try to fix dependencies to specific versions to avoid new
+# image builds to inadvertently change these and cause breakage
+# in old applications
+RUN pip install funcsigs==1.0.2 gunicorn==19.7.1 mock==2.0.0 \
+    nose==1.3.7 pbr==3.0.0 py==1.4.33 \
+    pytest==3.0.7 six==1.10.0 virtualenv==1.11.6
 
 # Install node packages
 RUN ln -s /usr/bin/nodejs /usr/bin/node \
